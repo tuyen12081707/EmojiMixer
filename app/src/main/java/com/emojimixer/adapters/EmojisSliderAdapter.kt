@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.TransitionOptions
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -20,7 +19,9 @@ import com.google.android.material.progressindicator.CircularProgressIndicator
 
 class EmojisSliderAdapter(
     private val data: ArrayList<HashMap<String, Any>>,
-    private val mContext: Context
+    private val mContext: Context,
+    private val type:Int,
+    private val callBack:ICallBack
 ) : RecyclerView.Adapter<EmojisSliderAdapter.ViewHolder>() {
     val original = data.clone() as ArrayList<HashMap<String, Any>>
     init {
@@ -36,18 +37,29 @@ class EmojisSliderAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val view = holder.itemView
         val unicode = data[position]["emojiUnicode"]!!.toString()
-        val emojiURL =
-            "https://ilyassesalama.github.io/EmojiMixer/emojis/supported_emojis_png/$unicode.png"
+        val emojiURL = "https://ilyassesalama.github.io/EmojiMixer/emojis/supported_emojis_png/$unicode.png"
         loadEmojiFromUrl(holder.emoji, holder.progressBar, emojiURL)
         val layoutParams = RecyclerView.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
+        view.setOnClickListener {
+            if(type==1){
+                callBack.clickItem(emojiURL,position)
+
+            }else if(type==2){
+                callBack.clickItem2(emojiURL,position)
+            }
+        }
         view.layoutParams = layoutParams
     }
 
     override fun getItemCount(): Int {
         return data.size
+    }
+     interface ICallBack{
+        fun clickItem(url: String, position: Int)
+        fun clickItem2(url: String, position: Int)
     }
 
     fun addItems(position: Int) {

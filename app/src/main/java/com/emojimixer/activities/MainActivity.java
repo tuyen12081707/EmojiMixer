@@ -9,6 +9,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
@@ -22,6 +23,7 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.URLUtil;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,6 +33,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,7 +47,6 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.emojimixer.R;
 import com.emojimixer.adapters.EmojisSliderAdapter;
-import com.emojimixer.functions.CenterZoomLayoutManager;
 import com.emojimixer.functions.EmojiMixer;
 import com.emojimixer.functions.RequestNetwork;
 import com.emojimixer.functions.RequestNetworkController;
@@ -55,6 +57,8 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -70,6 +74,11 @@ public class MainActivity extends AppCompatActivity {
     private ExtendedFloatingActionButton saveEmoji;
     private ExtendedFloatingActionButton exportEmoji;
     private ImageView mixedEmoji;
+    private ImageView ivPlayer1;
+    private ImageView ivPlayer2;
+    private ImageView ivChoose1;
+    private ImageView ivChoose2;
+    private Button btnMerge;
     private CircularProgressIndicator progressBar;
     private TextView activityDesc;
     private String emote1;
@@ -86,6 +95,8 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayoutManager emojisSlider2LayoutManager;
     private final SnapHelper emojisSlider1SnapHelper = new LinearSnapHelper();
     private final SnapHelper emojisSlider2SnapHelper = new LinearSnapHelper();
+    private int posItem1 = 0;
+    private int posItem2 = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,13 +110,17 @@ public class MainActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         activityDesc = findViewById(R.id.activityDesc);
         mixedEmoji = findViewById(R.id.mixedEmoji);
+        ivPlayer1 = findViewById(R.id.iv_player_1);
+        ivPlayer2 = findViewById(R.id.iv_player_2);
+        ivChoose1 = findViewById(R.id.iv_choose_player_1);
+        ivChoose2 = findViewById(R.id.iv_choose_player_2);
         saveEmoji = findViewById(R.id.saveEmoji);
         exportEmoji = findViewById(R.id.export);
+        btnMerge = findViewById(R.id.btn_merge);
         emojisSlider1 = findViewById(R.id.emojisSlider1);
         emojisSlider2 = findViewById(R.id.emojisSlider2);
         requestSupportedEmojis = new RequestNetwork(this);
         sharedPref = getSharedPreferences("AppData", Activity.MODE_PRIVATE);
-
         mixedEmoji.setOnClickListener(view -> {
             isFineToUseListeners = false;
             int random1 = 0;
@@ -127,6 +142,26 @@ public class MainActivity extends AppCompatActivity {
             emote2 = Objects.requireNonNull(supportedEmojisList.get(random2).get("emojiUnicode")).toString();
             mixEmojis(emote1, emote2, Objects.requireNonNull(supportedEmojisList.get(random1).get("date")).toString());
         });
+        ivPlayer1.setOnClickListener(v -> {
+            emojisSlider1.setVisibility(View.VISIBLE);
+            emojisSlider2.setVisibility(View.GONE);
+        });
+        ivPlayer2.setOnClickListener(v -> {
+            emojisSlider1.setVisibility(View.GONE);
+            emojisSlider2.setVisibility(View.VISIBLE);
+
+        });
+        ivChoose1.setOnClickListener(v->{
+            emojisSlider1.setVisibility(View.VISIBLE);
+            emojisSlider2.setVisibility(View.GONE);
+        });
+        ivChoose2.setOnClickListener(v->{
+            emojisSlider1.setVisibility(View.GONE);
+            emojisSlider2.setVisibility(View.VISIBLE);
+        });
+        btnMerge.setOnClickListener(v -> {
+            startActivity(new Intent(this, ResultActivity.class).putExtra("random1", posItem1).putExtra("random2", posItem2));
+        });
 
         saveEmoji.setOnClickListener(view -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -141,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        exportEmoji.setOnClickListener(v ->{
+        exportEmoji.setOnClickListener(v -> {
             BottomSheetDialog sheetDialog = new BottomSheetDialog(this);
             View view = getLayoutInflater().inflate(R.layout.sticker_bottom_sheet, null);
             LinearLayout whatsappButton = view.findViewById(R.id.whatsappButton);
@@ -176,8 +211,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void LOGIC_BACKEND() {
-        emojisSlider1LayoutManager = new CenterZoomLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        emojisSlider2LayoutManager = new CenterZoomLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        emojisSlider1LayoutManager = new GridLayoutManager(this, 6);
+        emojisSlider2LayoutManager = new GridLayoutManager(this, 6);
         setSnapHelper(emojisSlider1, emojisSlider1SnapHelper, emojisSlider1LayoutManager);
         setSnapHelper(emojisSlider2, emojisSlider2SnapHelper, emojisSlider2LayoutManager);
 
@@ -205,9 +240,34 @@ public class MainActivity extends AppCompatActivity {
         executor.execute(() -> {
             supportedEmojisList = new Gson().fromJson(data, new TypeToken<ArrayList<HashMap<String, Object>>>() {
             }.getType());
+//            ArrayList<HashMap<String, Object>> listEmoji= filterByCategory("emoji",supportedEmojisList);
+//            ArrayList<HashMap<String, Object>> listAnimal= filterByCategory("animal",supportedEmojisList);
+
             handler.post(() -> {
-                emojisSlider1.setAdapter(new EmojisSliderAdapter(supportedEmojisList, MainActivity.this));
-                emojisSlider2.setAdapter(new EmojisSliderAdapter(supportedEmojisList, MainActivity.this));
+                emojisSlider1.setAdapter(new EmojisSliderAdapter(supportedEmojisList, MainActivity.this, 1, new EmojisSliderAdapter.ICallBack() {
+                    @Override
+                    public void clickItem(@NotNull String url, int position) {
+                        posItem1 = position;
+                        setImageFromUrl(ivChoose1, url);
+                    }
+
+                    @Override
+                    public void clickItem2(@NotNull String url, int position) {
+
+                    }
+                }));
+                emojisSlider2.setAdapter(new EmojisSliderAdapter(supportedEmojisList, MainActivity.this, 2, new EmojisSliderAdapter.ICallBack() {
+                    @Override
+                    public void clickItem(@NotNull String url, int position) {
+                    }
+
+                    @Override
+                    public void clickItem2(@NotNull String url, int position) {
+                        setImageFromUrl(ivChoose2, url);
+                        posItem2 = position;
+
+                    }
+                }));
                 new Handler().postDelayed(() -> {
                     for (int i = 0; i < 2; i++) {
                         Random rand = new Random();
@@ -229,7 +289,17 @@ public class MainActivity extends AppCompatActivity {
             });
         });
     }
+    public ArrayList<HashMap<String, Object>> filterByCategory(String category, ArrayList<HashMap<String, Object>> supportedEmojisList) {
+        ArrayList<HashMap<String, Object>> filteredList = new ArrayList<>();
 
+        for (HashMap<String, Object> emoji : supportedEmojisList) {
+            if (emoji.containsKey("categories") && Objects.equals(emoji.get("categories"), category)) {
+                filteredList.add(emoji);
+            }
+        }
+
+        return filteredList;
+    }
     private void registerViewPagersListener() {
         emojisSlider1.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
