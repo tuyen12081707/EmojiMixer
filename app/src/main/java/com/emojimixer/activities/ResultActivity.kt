@@ -1,6 +1,7 @@
 package com.emojimixer.activities
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
@@ -46,61 +47,39 @@ import java.net.URL
 import java.util.Objects
 
 
-class ResultActivity : AppCompatActivity() {
-    private var random1: Int? = null
-    private var random2: Int? = null
-    private lateinit var binding: ActivityResultBinding
+class ResultActivity : BaseActivity<ActivityResultBinding>(ActivityResultBinding::inflate) {
     private var emote1: String? = null
     private var emote2: String? = null
-    private var supportedEmojisList = ArrayList<HashMap<String, Any>>()
     private var sharedPref: SharedPreferences? = null
-    private var requestSupportedEmojis: RequestNetwork? = null
-    private var requestSupportedEmojisListener: RequestNetwork.RequestListener? = null
     private var isEnableSHare = false
     private var emojiUrlLocal: String = ""
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityResultBinding.inflate(layoutInflater, null, false)
-        setContentView(binding.root)
-        initViews()
-    }
+    private var date = "20210218"
 
-    private fun initViews() {
-        random1 = intent.getIntExtra("random1", 0)
-        random2 = intent.getIntExtra("random2", 0)
-        Log.d("random1==", random1.toString())
-        Log.d("random2==", random2.toString())
+    override fun initView() {
         sharedPref = getSharedPreferences("AppData", MODE_PRIVATE)
-        requestSupportedEmojis = RequestNetwork(this)
-        requestSupportedEmojisListener = object : RequestNetwork.RequestListener {
-            override fun onResponse(
-                tag: String?,
-                response: String?,
-                responseHeaders: java.util.HashMap<String?, Any?>?
-            ) {
-                try {
-                    sharedPref?.edit()?.putString("supportedEmojisList", response)?.apply()
-                    addDataToSliders(response)
-                } catch (ignored: Exception) {
-                }
-            }
 
-            override fun onErrorResponse(tag: String?, message: String?) {}
-        }
-        if (sharedPref?.getString("supportedEmojisList", "")?.isEmpty() == true) {
-            requestSupportedEmojis?.startRequestNetwork(
-                RequestNetworkController.GET,
-                "https://ilyassesalama.github.io/EmojiMixer/emojis/supported_emojis.json",
-                "",
-                requestSupportedEmojisListener
-            )
-        } else {
+        emote1 = intent.getStringExtra("unicode1")
 
-            addDataToSliders(sharedPref?.getString("supportedEmojisList", ""))
+        emote2 = intent.getStringExtra("unicode2")
+        if(intent.getStringExtra("date")!=null){
+            date = intent.getStringExtra("date").toString()
         }
-        binding.ivBack.setOnClickListener {
+
+        Log.d("emote==", emote1.toString())
+        Log.d("emote==", emote2.toString())
+        mixEmojis(
+            emote1!!,
+            emote2!!,
+            date
+        )
+        binding.ivHome.setOnClickListener {
+            nextActivityClearTag<HomeActivity>(this)
+        }
+        binding.lnCreateNew.setOnClickListener {
+            setResult(RESULT_OK)
             finish()
         }
+
         binding.saveEmoji.setOnClickListener(View.OnClickListener { view: View? ->
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 Utils.saveImage(
@@ -137,6 +116,7 @@ class ResultActivity : AppCompatActivity() {
 
         }
     }
+    @SuppressLint("StaticFieldLeak")
     private fun downloadAndProcessImage(imageUrl: String) {
         // Use AsyncTask to download the image in the background
         object : AsyncTask<String, Void, File?>() {
@@ -179,11 +159,13 @@ class ResultActivity : AppCompatActivity() {
             }
         }.execute(imageUrl)
     }
+
     private fun processImage(imageFile: File) {
         // Do something with the image file, e.g., display it, share it, etc.
         // For example, let's share the image
         shareImage(imageFile)
     }
+
     private fun shareImage(imageFile: File) {
         // Get the URI for the file using FileProvider
         val uri: Uri = FileProvider.getUriForFile(
@@ -203,6 +185,7 @@ class ResultActivity : AppCompatActivity() {
         // Start the activity with a chooser dialog
         startActivity(Intent.createChooser(share, "Share Image"))
     }
+
     private fun shareLocalImage(file: File) {
 //        val uri: Uri = FileProvider.getUriForFile(
 //            this,
@@ -214,9 +197,11 @@ class ResultActivity : AppCompatActivity() {
             Log.e("File", "Exists");
         }
         if (file.exists()) Log.e("file", "exits")
-        val uri: Uri = FileProvider.getUriForFile(this,
+        val uri: Uri = FileProvider.getUriForFile(
+            this,
             "$packageName.provider",
-           file)
+            file
+        )
         val share = Intent()
         share.action = Intent.ACTION_SEND
         share.type = "image/*"
@@ -252,22 +237,7 @@ class ResultActivity : AppCompatActivity() {
         }
         return bmpUri
     }
-    private fun addDataToSliders(data: String?) {
-        supportedEmojisList = Gson().fromJson<ArrayList<java.util.HashMap<String, Any>>>(
-            data,
-            object : TypeToken<ArrayList<java.util.HashMap<String?, Any?>?>?>() {}.type
-        )
-        emote1 =
-            Objects.requireNonNull<Any>(supportedEmojisList[random1!!]["emojiUnicode"]).toString()
-        emote2 =
-            Objects.requireNonNull<Any>(supportedEmojisList[random2!!]["emojiUnicode"]).toString()
-        mixEmojis(
-            emote1!!,
-            emote2!!,
-            Objects.requireNonNull<Any>(supportedEmojisList[random1!!]["date"]).toString()
-        )
 
-    }
 
     private fun mixEmojis(emoji1: String, emoji2: String, date: String) {
         binding.progressBar.visibility = View.VISIBLE
@@ -298,7 +268,7 @@ class ResultActivity : AppCompatActivity() {
                 object : RequestListener<Drawable?> {
                     override fun onLoadFailed(
                         e: GlideException?,
-                        model: Any,
+                        p1: Any?,
                         target: Target<Drawable?>,
                         isFirstResource: Boolean
                     ): Boolean {
@@ -307,9 +277,9 @@ class ResultActivity : AppCompatActivity() {
                     }
 
                     override fun onResourceReady(
-                        resource: Drawable?,
+                        p0: Drawable,
                         model: Any,
-                        target: Target<Drawable?>,
+                        target: Target<Drawable?>?,
                         dataSource: DataSource,
                         isFirstResource: Boolean
                     ): Boolean {
@@ -334,4 +304,6 @@ class ResultActivity : AppCompatActivity() {
             shadAnim(binding.progressBar, "scaleX", 1.0, 300)
         }
     }
+
+
 }

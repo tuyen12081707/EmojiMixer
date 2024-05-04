@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/language"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:background="@drawable/bg_language_un_active"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingVertical="12dp"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginVertical="4dp">
+
+    <ImageView
+        android:id="@+id/language_icon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="15dp"
+        android:src="@drawable/english" />
+
+    <TextView
+        android:id="@+id/language_name"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="15dp"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:layout_marginEnd="@dimen/_50sdp"
+        android:focusableInTouchMode="true"
+        android:gravity="left|center_vertical"
+        android:fontFamily="@font/montserrat_medium"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:text="@string/english"
+        android:textColor="#005E7C"
+        android:textSize="16sp"
+        android:layout_toEndOf="@+id/language_icon"/>
+    <ImageView
+        android:id="@+id/iv_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_15sdp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_uncheck"
+        />
+</RelativeLayout>

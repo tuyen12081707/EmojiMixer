@@ -3,6 +3,7 @@ package com.emojimixer.adapters
 import android.app.Activity
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,12 +19,11 @@ import com.emojimixer.R
 import com.google.android.material.progressindicator.CircularProgressIndicator
 
 class EmojisSliderAdapter(
-    private val data: ArrayList<HashMap<String, Any>>,
+    private var data: ArrayList<HashMap<String, Any>>,
     private val mContext: Context,
-    private val type:Int,
+    private var type:Int,
     private val callBack:ICallBack
 ) : RecyclerView.Adapter<EmojisSliderAdapter.ViewHolder>() {
-    val original = data.clone() as ArrayList<HashMap<String, Any>>
     init {
         mContext.getSharedPreferences("AppData", Activity.MODE_PRIVATE)
     }
@@ -33,39 +33,41 @@ class EmojisSliderAdapter(
             LayoutInflater.from(parent.context).inflate(R.layout.emojis_slider_item, parent, false)
         )
     }
-
+    fun updateData(newArray:ArrayList<HashMap<String, Any>>){
+        data = newArray
+        notifyDataSetChanged()
+    }
+    fun updateType(newType:Int){
+        type = newType
+        notifyDataSetChanged()
+    }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val view = holder.itemView
         val unicode = data[position]["emojiUnicode"]!!.toString()
+        Log.d("unicode==",unicode)
+        val date = data[position]["date"]!!.toString()
         val emojiURL = "https://ilyassesalama.github.io/EmojiMixer/emojis/supported_emojis_png/$unicode.png"
         loadEmojiFromUrl(holder.emoji, holder.progressBar, emojiURL)
-        val layoutParams = RecyclerView.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
+
         view.setOnClickListener {
             if(type==1){
-                callBack.clickItem(emojiURL,position)
+                callBack.clickItem(emojiURL,position,unicode,date)
 
             }else if(type==2){
-                callBack.clickItem2(emojiURL,position)
+                callBack.clickItem2(emojiURL,position,unicode)
             }
         }
-        view.layoutParams = layoutParams
     }
 
     override fun getItemCount(): Int {
         return data.size
     }
      interface ICallBack{
-        fun clickItem(url: String, position: Int)
-        fun clickItem2(url: String, position: Int)
+        fun clickItem(url: String, position: Int,unicode:String,date:String)
+        fun clickItem2(url: String, position: Int,unicode:String)
     }
 
-    fun addItems(position: Int) {
-        data.addAll(position, original)
-        notifyItemRangeInserted(position, original.size)
-    }
+
 
     private fun loadEmojiFromUrl(
         image: ImageView,
@@ -80,17 +82,19 @@ class EmojisSliderAdapter(
                 object : RequestListener<Drawable?> {
                     override fun onLoadFailed(
                         e: GlideException?,
-                        model: Any,
+                        p1: Any?,
                         target: Target<Drawable?>,
                         isFirstResource: Boolean
                     ): Boolean {
+                        Log.d("url==",url.toString())
+                        progressBar.visibility = View.GONE
                         return false
                     }
 
                     override fun onResourceReady(
-                        resource: Drawable?,
+                        p0: Drawable,
                         model: Any,
-                        target: Target<Drawable?>,
+                        target: Target<Drawable?>?,
                         dataSource: DataSource,
                         isFirstResource: Boolean
                     ): Boolean {
