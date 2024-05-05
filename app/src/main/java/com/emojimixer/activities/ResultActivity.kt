@@ -37,6 +37,7 @@ import com.emojimixer.functions.RequestNetwork
 import com.emojimixer.functions.RequestNetworkController
 import com.emojimixer.functions.UIMethods.shadAnim
 import com.emojimixer.functions.Utils
+import com.emojimixer.utils.Common
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.File
@@ -61,12 +62,9 @@ class ResultActivity : BaseActivity<ActivityResultBinding>(ActivityResultBinding
         emote1 = intent.getStringExtra("unicode1")
 
         emote2 = intent.getStringExtra("unicode2")
-        if(intent.getStringExtra("date")!=null){
+        if (intent.getStringExtra("date") != null) {
             date = intent.getStringExtra("date").toString()
         }
-
-        Log.d("emote==", emote1.toString())
-        Log.d("emote==", emote2.toString())
         mixEmojis(
             emote1!!,
             emote2!!,
@@ -80,7 +78,7 @@ class ResultActivity : BaseActivity<ActivityResultBinding>(ActivityResultBinding
             finish()
         }
 
-        binding.saveEmoji.setOnClickListener(View.OnClickListener { view: View? ->
+        binding.saveEmoji.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 Utils.saveImage(
                     binding.mixedEmoji,
@@ -108,14 +106,14 @@ class ResultActivity : BaseActivity<ActivityResultBinding>(ActivityResultBinding
                     )
                 }
             }
-        })
+        }
         binding.share.setOnClickListener {
             if (isEnableSHare) {
                 downloadAndProcessImage(emojiUrlLocal)
             }
-
         }
     }
+
     @SuppressLint("StaticFieldLeak")
     private fun downloadAndProcessImage(imageUrl: String) {
         // Use AsyncTask to download the image in the background
@@ -186,58 +184,6 @@ class ResultActivity : BaseActivity<ActivityResultBinding>(ActivityResultBinding
         startActivity(Intent.createChooser(share, "Share Image"))
     }
 
-    private fun shareLocalImage(file: File) {
-//        val uri: Uri = FileProvider.getUriForFile(
-//            this,
-//            "$packageName.provider",
-//            file
-//        )
-//        val file = File(sharePath)
-        if (file.exists()) {
-            Log.e("File", "Exists");
-        }
-        if (file.exists()) Log.e("file", "exits")
-        val uri: Uri = FileProvider.getUriForFile(
-            this,
-            "$packageName.provider",
-            file
-        )
-        val share = Intent()
-        share.action = Intent.ACTION_SEND
-        share.type = "image/*"
-        share.putExtra(Intent.EXTRA_SUBJECT, "Subject Here")
-        share.putExtra(Intent.EXTRA_STREAM, uri)
-        startActivity(Intent.createChooser(share, "Share Image"))
-    }
-
-    fun getLocalBitmapUri(imageView: ImageView): Uri? {
-        // Extract Bitmap from ImageView drawable
-        val drawable = imageView.drawable
-        var bmp: Bitmap? = null
-        bmp = if (drawable is BitmapDrawable) {
-            (imageView.drawable as BitmapDrawable).bitmap
-        } else {
-            return null
-        }
-        // Store image to default external storage directory
-        var bmpUri: Uri? = null
-        try {
-            val file = File(
-                Environment.getExternalStoragePublicDirectory(
-                    Environment.DIRECTORY_DOWNLOADS
-                ), "share_image_" + System.currentTimeMillis() + ".png"
-            )
-            file.parentFile.mkdirs()
-            val out = FileOutputStream(file)
-            bmp.compress(Bitmap.CompressFormat.PNG, 90, out)
-            out.close()
-            bmpUri = Uri.fromFile(file)
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-        return bmpUri
-    }
-
 
     private fun mixEmojis(emoji1: String, emoji2: String, date: String) {
         binding.progressBar.visibility = View.VISIBLE
@@ -246,6 +192,9 @@ class ResultActivity : BaseActivity<ActivityResultBinding>(ActivityResultBinding
                 isEnableSHare = true
                 emojiUrlLocal = emojiUrl
                 Log.d("emojiUrl==", emojiUrl)
+                var listCollection = Common.getListCollection(this@ResultActivity)
+                listCollection.add(emojiUrl)
+                Common.setListCollection(this@ResultActivity,listCollection)
                 setImageFromUrl(binding.mixedEmoji, emojiUrl)
             }
 

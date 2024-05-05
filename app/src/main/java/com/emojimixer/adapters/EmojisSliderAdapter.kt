@@ -47,7 +47,8 @@ class EmojisSliderAdapter(
         Log.d("unicode==",unicode)
         val date = data[position]["date"]!!.toString()
         val emojiURL = "https://ilyassesalama.github.io/EmojiMixer/emojis/supported_emojis_png/$unicode.png"
-        loadEmojiFromUrl(holder.emoji, holder.progressBar, emojiURL)
+        Log.d(unicode.toString()+"==","${getDrawableIdByName(unicode)}+==")
+        loadEmojiFromUrl(holder.emoji, holder.progressBar, getDrawableIdByName(unicode))
 
         view.setOnClickListener {
             if(type==1){
@@ -58,7 +59,9 @@ class EmojisSliderAdapter(
             }
         }
     }
-
+    private fun getDrawableIdByName(resourceName: String): Int {
+        return mContext.resources.getIdentifier(resourceName, "drawable", mContext.packageName)
+    }
     override fun getItemCount(): Int {
         return data.size
     }
@@ -72,7 +75,7 @@ class EmojisSliderAdapter(
     private fun loadEmojiFromUrl(
         image: ImageView,
         progressBar: CircularProgressIndicator,
-        url: String
+        url: Int
     ) {
         Glide.with(mContext)
             .load(url)
@@ -87,6 +90,7 @@ class EmojisSliderAdapter(
                         isFirstResource: Boolean
                     ): Boolean {
                         Log.d("url==",url.toString())
+
                         progressBar.visibility = View.GONE
                         return false
                     }

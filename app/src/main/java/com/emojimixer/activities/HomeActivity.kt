@@ -27,6 +27,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
     override fun onClick(view: View) {
         if (view.id == R.id.btn_merge) {
             mLauncher.launch(Intent(this,MainActivity::class.java))
+        }else if(view.id == R.id.tv_collection){
+            mLauncher.launch(Intent(this,CollectionActivity::class.java))
+        }else if(view.id==R.id.tv_setting){
+            mLauncher.launch(Intent(this,SettingActivity::class.java))
         }
     }
 }

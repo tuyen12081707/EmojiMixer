@@ -27,7 +27,7 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(ActivityIntroBinding::i
 
             } else {
                 val intent =
-                    Intent(this@IntroActivity, MainActivity::class.java)
+                    Intent(this@IntroActivity, OnBoardingActivity::class.java)
                 intent.flags =
                     Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)

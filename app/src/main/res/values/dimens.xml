@@ -2,4 +2,5 @@
 <resources>
     <dimen name="margin_card">30dp</dimen>
     <dimen name="peek_offset_card">100dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

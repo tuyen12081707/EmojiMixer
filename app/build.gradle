@@ -35,6 +35,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
+
 }
 
 dependencies {
@@ -55,4 +56,5 @@ dependencies {
     //rxbinding
     implementation 'com.jakewharton.rxbinding4:rxbinding:4.0.0'
     implementation 'androidx.activity:activity:1.8.0'
+
 }

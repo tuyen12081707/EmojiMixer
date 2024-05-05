@@ -65,7 +65,7 @@ class LanguagesActivity:BaseActivity<ActivityLanguagesBinding>(ActivityLanguages
                 Common.setPositionLanguage(this, pos)
                 Common.setPreLanguageflag(this, flag)
                 if (intent.getBooleanExtra("fromHome", false)) {
-                    val intent = Intent(this@LanguagesActivity, MainActivity::class.java)
+                    val intent = Intent(this@LanguagesActivity, HomeActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     startActivity(intent)
