@@ -5,6 +5,7 @@ import android.content.Intent
 import android.widget.Toast
 import com.emojimixer.R
 import com.emojimixer.adapters.LanguageAdapter
+import com.emojimixer.ads.AdsManager
 import com.emojimixer.databinding.ActivityLanguagesBinding
 import com.emojimixer.utils.Common
 import com.emojimixer.utils.Common.gone
@@ -24,9 +25,13 @@ class LanguagesActivity:BaseActivity<ActivityLanguagesBinding>(ActivityLanguages
         binding.tvLanguages.isSelected = true
         if (!intent.getBooleanExtra("fromHome", false)) {
             binding.ivBack.gone()
+            AdsManager.showNative(this, binding.frNative, AdsManager.NATIVE_LANGUAGE)
+
         }else{
             binding.ivBack.visible()
+            AdsManager.loadAndShowNative(this,binding.frNative,AdsManager.NATIVE_LANGUAGE)
         }
+        AdsManager.loadNative(this,AdsManager.NATIVE_INTRO)
         LanguageAdapter.selected = Common.getPositionLanguage(this)
         flag = Common.getPreLanguageflag(this)
         language = Common.getLang(this).toString()

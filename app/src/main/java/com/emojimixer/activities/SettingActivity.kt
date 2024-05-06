@@ -18,6 +18,9 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>(ActivitySettingBind
 
     override fun initView() {
         binding.tvSound.runSelected()
+        binding.ivBack.setOnClickListener {
+            finish()
+        }
         binding.lnLanguages.setOnClickListener {
             mLauncher.launch(Intent(this, LanguagesActivity::class.java).putExtra("fromHome", true))
         }

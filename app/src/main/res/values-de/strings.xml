@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="activity_hint_1">Wischen Sie nach links oder rechts, um Emojis zu mischen</string>
+    <string name="downloading">Laden Sie Ihr cooles gemischtes Emoji herunter&#8230;</string>
+    <string name="swipe_left_or_right_to_mix_emojis">Wischen Sie nach links oder rechts, um Emojis zu mischen</string>
+    <string name="save_emoji">Speichern</string>
+    <string name="exporting">Exportieren</string>
+    <string name="saved">Erfolgreich gespeichert</string>
+    <string name="failed_to_save">Speichern fehlgeschlagen</string>
+    <string name="title_activity_result">ErgebnisAktivität</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">Erstes Fragment</string>
+    <string name="second_fragment_label">Zweites Fragment</string>
+    <string name="next">Nächste</string>
+    <string name="previous">Vorherige</string>
+
+    <!--        language-->
+    <string name="hindi">Hindi</string>
+    <string name="spanish">Spanisch</string>
+    <string name="french">Französisch</string>
+    <string name="arabic">Arabisch</string>
+    <string name="bengali">Bengali</string>
+    <string name="russian">Russisch</string>
+    <string name="portuguese">Portugiesisch</string>
+    <string name="indonesian">Indonesisch</string>
+    <string name="german">Deutsch</string>
+    <string name="italian">Italienisch</string>
+    <string name="korean">Koreanisch</string>
+    <string name="english">Englisch</string>
+    <string name="language">Sprache</string>
+    <string name="intro_title_1">Einzigartige Kombinations-Emojis stehen für Sie bereit.</string>
+    <string name="intro_title_2">Verschiedene Emoji-Kategorien, darunter Smileys, Tiere, Essen ... und mehr.</string>
+    <string name="intro_title_3">Wählen Sie zwei Emojis aus und fügen Sie sie zusammen, um ein süßes, einzigartiges Emoji zu erstellen</string>
+    <string name="let_s_go">Lass uns gehen</string>
+    <string name="merge">Verschmelzen</string>
+    <string name="collection">Sammlung</string>
+    <string name="setting">Einstellung</string>
+    <string name="new_emoji">Neues Emoji</string>
+    <string name="share">Aktie</string>
+    <string name="create_new">Erstelle neu</string>
+    <string name="oh">Oh!</string>
+    <string name="your_collection_is_empty">Ihre Sammlung ist leer!</string>
+
+    <string name="sound">Klang</string>
+</resources>

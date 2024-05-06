@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="activity_hint_1">इमोजी को मिलाने के लिए बाएँ या दाएँ स्वाइप करें</string>
+    <string name="downloading">आपका बेहतरीन मिश्रित इमोजी डाउनलोड किया जा रहा है&#8230;</string>
+    <string name="swipe_left_or_right_to_mix_emojis">इमोजी को मिलाने के लिए बाएँ या दाएँ स्वाइप करें</string>
+    <string name="save_emoji">बचाना</string>
+    <string name="exporting">निर्यात</string>
+    <string name="saved">सफलतापूर्वक संचित कर लिया गया है</string>
+    <string name="failed_to_save">सहेजने में विफल</string>
+    <string name="title_activity_result">परिणाम सक्रियता</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">पहला टुकड़ा</string>
+    <string name="second_fragment_label">दूसरा टुकड़ा</string>
+    <string name="next">अगला</string>
+    <string name="previous">पहले का</string>
+
+    <!--        language-->
+    <string name="hindi">हिंदी</string>
+    <string name="spanish">स्पैनिश</string>
+    <string name="french">फ़्रेंच</string>
+    <string name="arabic">अरबी</string>
+    <string name="bengali">बंगाली</string>
+    <string name="russian">रूसी</string>
+    <string name="portuguese">पुर्तगाली</string>
+    <string name="indonesian">इन्डोनेशियाई</string>
+    <string name="german">जर्मन</string>
+    <string name="italian">इतालवी</string>
+    <string name="korean">कोरियाई</string>
+    <string name="english">अंग्रेज़ी</string>
+    <string name="language">भाषा</string>
+    <string name="intro_title_1">अद्वितीय संयोजन इमोजी आपके उपयोग के लिए तैयार हैं।</string>
+    <string name="intro_title_2">स्माइली, जानवर, भोजन... और बहुत कुछ सहित विभिन्न इमोजी श्रेणियां।</string>
+    <string name="intro_title_3">एक प्यारा अनोखा इमोजी बनाने के लिए दो इमोजी चुनें और मर्ज करें</string>
+    <string name="let_s_go">चल दर</string>
+    <string name="merge">मर्ज</string>
+    <string name="collection">संग्रह</string>
+    <string name="setting">सेटिंग</string>
+    <string name="new_emoji">नई इमोजी</string>
+    <string name="share">शेयर करना</string>
+    <string name="create_new">नया निर्माण</string>
+    <string name="oh">ओह!</string>
+    <string name="your_collection_is_empty">आपका संग्रह खाली है!</string>
+
+    <string name="sound">आवाज़</string>
+</resources>

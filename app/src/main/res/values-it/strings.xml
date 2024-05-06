@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="activity_hint_1">Scorri verso sinistra o destra per mescolare gli emoji</string>
+    <string name="downloading">Download delle tue fantastiche emoji miste&#8230;</string>
+    <string name="swipe_left_or_right_to_mix_emojis">Scorri verso sinistra o destra per mescolare gli emoji</string>
+    <string name="save_emoji">Salva</string>
+    <string name="exporting">Esportazione</string>
+    <string name="saved">Salvato con successo</string>
+    <string name="failed_to_save">Impossibile salvare</string>
+    <string name="title_activity_result">Attività risultato</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">Primo Frammento</string>
+    <string name="second_fragment_label">Secondo frammento</string>
+    <string name="next">Prossimo</string>
+    <string name="previous">Precedente</string>
+
+    <!--        language-->
+    <string name="hindi">hindi</string>
+    <string name="spanish">spagnolo</string>
+    <string name="french">francese</string>
+    <string name="arabic">Arabo</string>
+    <string name="bengali">bengalese</string>
+    <string name="russian">russo</string>
+    <string name="portuguese">portoghese</string>
+    <string name="indonesian">indonesiano</string>
+    <string name="german">Tedesco</string>
+    <string name="italian">Italiano</string>
+    <string name="korean">coreano</string>
+    <string name="english">Inglese</string>
+    <string name="language">Lingua</string>
+    <string name="intro_title_1">Combinazioni di emoji uniche sono pronte per l\'uso.</string>
+    <string name="intro_title_2">Varie categorie di emoji tra cui faccine, animali, cibo... e altro ancora.</string>
+    <string name="intro_title_3">Seleziona e unisci due emoji per creare un\'emoji unica e carina</string>
+    <string name="let_s_go">Andiamo</string>
+    <string name="merge">Unisci</string>
+    <string name="collection">Collezione</string>
+    <string name="setting">Collocamento</string>
+    <string name="new_emoji">Nuova emoticon</string>
+    <string name="share">Condividere</string>
+    <string name="create_new">Creare nuovo</string>
+    <string name="oh">OH!</string>
+    <string name="your_collection_is_empty">La tua raccolta è vuota!</string>
+
+    <string name="sound">Suono</string>
+</resources>

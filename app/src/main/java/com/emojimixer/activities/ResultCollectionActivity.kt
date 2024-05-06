@@ -47,7 +47,9 @@ class ResultCollectionActivity : BaseActivity<ActivityResultCollectionBinding>(A
         if (intent.getStringExtra("date") != null) {
             date = intent.getStringExtra("date").toString()
         }
-
+        binding.ivBack.setOnClickListener {
+            finish()
+        }
         if(emote1!=null && emote2!=null){
             setImageFromInt(binding.ivCompanion1,getDrawableIdByName(emote1!!))
             setImageFromInt(binding.ivCompanion2,getDrawableIdByName(emote2!!))

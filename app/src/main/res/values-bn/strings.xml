@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">EmojiMixer</string>
+    <string name="activity_hint_1">ইমোজি মিশ্রিত করতে বাম বা ডানদিকে সোয়াইপ করুন</string>
+    <string name="downloading">আপনার দুর্দান্ত মিশ্র ইমোজি ডাউনলোড করা হচ্ছে&#8230;</string>
+    <string name="swipe_left_or_right_to_mix_emojis">ইমোজি মিশ্রিত করতে বাম বা ডানদিকে সোয়াইপ করুন</string>
+    <string name="save_emoji">সংরক্ষণ</string>
+    <string name="exporting">রপ্তানি হচ্ছে</string>
+    <string name="saved">সফলভাবে সংরক্ষিত</string>
+    <string name="failed_to_save">সংরক্ষণ করতে ব্যর্থ হয়েছে</string>
+    <string name="title_activity_result">ফলাফল কার্যকলাপ</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">প্রথম খণ্ড</string>
+    <string name="second_fragment_label">দ্বিতীয় খণ্ড</string>
+    <string name="next">পরবর্তী</string>
+    <string name="previous">আগে</string>
+
+    <!--        language-->
+    <string name="hindi">হিন্দি</string>
+    <string name="spanish">স্পেনীয়</string>
+    <string name="french">ফরাসি</string>
+    <string name="arabic">আরবি</string>
+    <string name="bengali">বাংলা</string>
+    <string name="russian">রাশিয়ান</string>
+    <string name="portuguese">পর্তুগীজ</string>
+    <string name="indonesian">ইন্দোনেশিয়ান</string>
+    <string name="german">জার্মান</string>
+    <string name="italian">ইতালীয়</string>
+    <string name="korean">কোরিয়ান</string>
+    <string name="english">ইংরেজি</string>
+    <string name="language">ভাষা</string>
+    <string name="intro_title_1">ইউনিক কম্বিনেশন ইমোজি আপনার ব্যবহারের জন্য প্রস্তুত।</string>
+    <string name="intro_title_2">স্মাইলি, প্রাণী, খাবার... এবং আরও অনেক কিছু সহ বিভিন্ন ইমোজি বিভাগ।</string>
+    <string name="intro_title_3">একটি সুন্দর অনন্য ইমোজি তৈরি করতে দুটি ইমোজি নির্বাচন করুন এবং মার্জ করুন</string>
+    <string name="let_s_go">চলো যাই</string>
+    <string name="merge">একত্রিত করা</string>
+    <string name="collection">সংগ্রহ</string>
+    <string name="setting">বিন্যাস</string>
+    <string name="new_emoji">নতুন ইমোজি</string>
+    <string name="share">শেয়ার করুন</string>
+    <string name="create_new">নতুন তৈরী করা</string>
+    <string name="oh">উহু!</string>
+    <string name="your_collection_is_empty">আপনার সংগ্রহ খালি!</string>
+
+    <string name="sound">শব্দ</string>
+</resources>

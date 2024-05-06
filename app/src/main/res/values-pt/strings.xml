@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="activity_hint_1">Deslize para a esquerda ou direita para misturar emojis</string>
+    <string name="downloading">Baixando seu emoji misto legal &amp; # 8230;</string>
+    <string name="swipe_left_or_right_to_mix_emojis">Deslize para a esquerda ou direita para misturar emojis</string>
+    <string name="save_emoji">Salvar</string>
+    <string name="exporting">Exportador</string>
+    <string name="saved">Salvo com sucesso</string>
+    <string name="failed_to_save">Falha ao salvar</string>
+    <string name="title_activity_result">Atividade de resultado</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">Primeiro Fragmento</string>
+    <string name="second_fragment_label">Segundo Fragmento</string>
+    <string name="next">Próximo</string>
+    <string name="previous">Anterior</string>
+
+    <!--        language-->
+    <string name="hindi">hindi</string>
+    <string name="spanish">Espanhol</string>
+    <string name="french">Francês</string>
+    <string name="arabic">árabe</string>
+    <string name="bengali">bengali</string>
+    <string name="russian">russo</string>
+    <string name="portuguese">Português</string>
+    <string name="indonesian">indonésio</string>
+    <string name="german">Alemão</string>
+    <string name="italian">italiano</string>
+    <string name="korean">coreano</string>
+    <string name="english">Inglês</string>
+    <string name="language">Linguagem</string>
+    <string name="intro_title_1">Emojis de combinação exclusiva estão prontos para você usar.</string>
+    <string name="intro_title_2">Várias categorias de emojis, incluindo smileys, animais, comida... e muito mais.</string>
+    <string name="intro_title_3">Selecione e mescle dois emojis para criar um emoji fofo e único</string>
+    <string name="let_s_go">Vamos</string>
+    <string name="merge">Mesclar</string>
+    <string name="collection">Coleção</string>
+    <string name="setting">Contexto</string>
+    <string name="new_emoji">Novos emojis</string>
+    <string name="share">Compartilhar</string>
+    <string name="create_new">Crie um novo</string>
+    <string name="oh">Oh!</string>
+    <string name="your_collection_is_empty">Sua coleção está vazia!</string>
+
+    <string name="sound">Som</string>
+
+</resources>

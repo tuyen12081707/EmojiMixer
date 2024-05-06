@@ -26,13 +26,21 @@
             android:layout_centerVertical="true"
             android:src="@drawable/ic_back_merge" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:fontFamily="@font/svn_dumpling"
             android:text="@string/collection"
-            android:textColor="@color/white"
+            android:shadowRadius="10"
+            android:shadowDx="4"
+            android:shadowDy="5"
+            android:textColor="#0061BB"
+            android:shadowColor="#FFFFFF"
+            app:stroke="true"
+            app:strokeWidth="0.2dp"
+            app:strokeColor="#2B4E83"
+            android:padding="2dp"
             android:textSize="32sp" />
     </RelativeLayout>
 
@@ -113,4 +121,11 @@
 
 
     </androidx.core.widget.NestedScrollView>
+    <View
+        android:id="@+id/dont_touch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="1dp"
+        android:translationZ="1dp"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

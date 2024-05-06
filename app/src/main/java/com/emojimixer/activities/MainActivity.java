@@ -33,6 +33,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -51,6 +55,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.emojimixer.R;
 import com.emojimixer.adapters.EmojisSliderAdapter;
+import com.emojimixer.ads.AdsManager;
 import com.emojimixer.databinding.ActivityMainBinding;
 import com.emojimixer.functions.EmojiMixer;
 import com.emojimixer.functions.RequestNetwork;
@@ -63,6 +68,7 @@ import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jakewharton.rxbinding4.view.RxView;
+import com.vapp.admoblibrary.ads.AdmobUtils;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -107,15 +113,31 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<HashMap<String, Object>> listFood;
     private ArrayList<HashMap<String, Object>> listOther;
     private EmojisSliderAdapter emojiAdapter;
-
+    ActivityResultLauncher<Intent> mLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                loadAndShowBannerCollap();
+            });
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         hideNavigation();
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        loadAndShowBannerCollap();
         initLogic();
         LOGIC_BACKEND();
+    }
+
+    private void loadAndShowBannerCollap() {
+        if(AdmobUtils.isNetworkConnected(this)){
+            binding.frBanner.setVisibility(View.VISIBLE);
+            binding.line.setVisibility(View.VISIBLE);
+            AdsManager.showAdBannerCollapsible(this,AdsManager.INSTANCE.getBANNER_COLLAP_MERGE(), binding.frBanner,binding.line);
+        }else{
+            binding.frBanner.setVisibility(View.GONE);
+            binding.line.setVisibility(View.GONE);
+        }
     }
 
     public void hideNavigation() {
@@ -157,26 +179,46 @@ public class MainActivity extends AppCompatActivity {
         });
         RxView.clicks(binding.ivCategories1).throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe(v->{
             emojiAdapter.updateData(listEmoji);
-
+            binding.ivCategories1.setBackgroundResource(R.drawable.img_choose_active);
+            binding.ivCategories2.setBackgroundResource(R.drawable.img_choose_unactive);
+            binding.ivCategories3.setBackgroundResource(R.drawable.img_choose_unactive);
+            binding.ivCategories4.setBackgroundResource(R.drawable.img_choose_unactive);
         });
         RxView.clicks(binding.ivCategories2).throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe(v->{
             emojiAdapter.updateData(listFood);
+            binding.ivCategories1.setBackgroundResource(R.drawable.img_choose_unactive);
+            binding.ivCategories2.setBackgroundResource(R.drawable.img_choose_active);
+            binding.ivCategories3.setBackgroundResource(R.drawable.img_choose_unactive);
+            binding.ivCategories4.setBackgroundResource(R.drawable.img_choose_unactive);
         });
         RxView.clicks(binding.ivCategories3).throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe(v->{
             emojiAdapter.updateData(listOther);
+            binding.ivCategories1.setBackgroundResource(R.drawable.img_choose_unactive);
+            binding.ivCategories2.setBackgroundResource(R.drawable.img_choose_unactive);
+            binding.ivCategories3.setBackgroundResource(R.drawable.img_choose_active);
+            binding.ivCategories4.setBackgroundResource(R.drawable.img_choose_unactive);
 
         });
         RxView.clicks(binding.ivCategories4).throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe(v->{
             emojiAdapter.updateData(listAnimal);
+            binding.ivCategories1.setBackgroundResource(R.drawable.img_choose_unactive);
+            binding.ivCategories2.setBackgroundResource(R.drawable.img_choose_unactive);
+            binding.ivCategories3.setBackgroundResource(R.drawable.img_choose_unactive);
+            binding.ivCategories4.setBackgroundResource(R.drawable.img_choose_active);
+        });
+        binding.dontTouch.setVisibility(View.GONE);
+        binding.dontTouch.setOnClickListener(v->{
 
         });
-
         btnMerge.setOnClickListener(v -> {
-            Intent intent = new Intent(this, ResultActivity.class)
-                    .putExtra("unicode1",unicode1)
-                    .putExtra("unicode2",unicode2)
-                    .putExtra("date",newDate);
-            startActivity(intent);
+            binding.dontTouch.setVisibility(View.VISIBLE);
+            AdsManager.showAdInter(this, AdsManager.INSTANCE.getINTER_MERGE(), new AdsManager.AdListener() {
+                @Override
+                public void onAdClosed() {
+                    binding.dontTouch.setVisibility(View.GONE);
+                    handleReplaceActivityResult();
+                }
+            },"1");
         });
 
         String response = AssetJSONFile("supported_emojis.json", this);
@@ -200,6 +242,14 @@ public class MainActivity extends AppCompatActivity {
 //
 //            }
 //        };
+    }
+
+    private void handleReplaceActivityResult() {
+        Intent intent = new Intent(this, ResultActivity.class)
+                .putExtra("unicode1",unicode1)
+                .putExtra("unicode2",unicode2)
+                .putExtra("date",newDate);
+        mLauncher.launch(intent);
     }
 
     private void LOGIC_BACKEND() {

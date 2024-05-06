@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="activity_hint_1">이모티콘을 혼합하려면 왼쪽이나 오른쪽으로 스와이프하세요.</string>
+    <string name="downloading">멋진 혼합 이모티콘을 다운로드하는 중&#8230;</string>
+    <string name="swipe_left_or_right_to_mix_emojis">이모티콘을 혼합하려면 왼쪽이나 오른쪽으로 스와이프하세요.</string>
+    <string name="save_emoji">구하다</string>
+    <string name="exporting">내보내기</string>
+    <string name="saved">성공적으로 저장되었습니다</string>
+    <string name="failed_to_save">저장하지 못했습니다.</string>
+    <string name="title_activity_result">결과활동</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">첫 번째 조각</string>
+    <string name="second_fragment_label">두 번째 조각</string>
+    <string name="next">다음</string>
+    <string name="previous">이전의</string>
+
+    <!--        language-->
+    <string name="hindi">힌디 어</string>
+    <string name="spanish">스페인의</string>
+    <string name="french">프랑스 국민</string>
+    <string name="arabic">아라비아 말</string>
+    <string name="bengali">벵골 사람</string>
+    <string name="russian">러시아인</string>
+    <string name="portuguese">포르투갈 인</string>
+    <string name="indonesian">인도네시아 인</string>
+    <string name="german">독일 사람</string>
+    <string name="italian">이탈리아 사람</string>
+    <string name="korean">한국인</string>
+    <string name="english">영어</string>
+    <string name="language">언어</string>
+    <string name="intro_title_1">고유한 조합 이모티콘을 사용할 수 있습니다.</string>
+    <string name="intro_title_2">스마일리, 동물, 음식 등을 포함한 다양한 이모티콘 카테고리.</string>
+    <string name="intro_title_3">두 개의 이모티콘을 선택하고 병합하여 귀엽고 독특한 이모티콘을 만드세요.</string>
+    <string name="let_s_go">갑시다</string>
+    <string name="merge">병합</string>
+    <string name="collection">수집</string>
+    <string name="setting">환경</string>
+    <string name="new_emoji">새로운 이모티콘</string>
+    <string name="share">공유하다</string>
+    <string name="create_new">새로 만들기</string>
+    <string name="oh">오!</string>
+    <string name="your_collection_is_empty">컬렉션이 비어 있습니다!</string>
+
+    <string name="sound">소리</string>
+
+</resources>

@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
@@ -30,6 +31,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
@@ -56,5 +58,17 @@ dependencies {
     //rxbinding
     implementation 'com.jakewharton.rxbinding4:rxbinding:4.0.0'
     implementation 'androidx.activity:activity:1.8.0'
-
+    //Admob
+    implementation 'com.github.dktlib:AdmobUtilsLibrary:7.3.2'
+    implementation 'com.google.ads.mediation:pangle:5.8.0.7.0'
+    implementation 'com.google.ads.mediation:applovin:12.3.0.0'
+    implementation 'com.google.ads.mediation:facebook:6.16.0.0'
+    implementation 'com.google.ads.mediation:vungle:7.1.0.0'
+    implementation 'com.google.ads.mediation:mintegral:16.6.51.0'
+    implementation 'com.google.ads.mediation:ironsource:7.8.1.1'
+    //CMP
+    implementation'com.google.android.ump:user-messaging-platform:2.2.0'
+}
+secrets {
+    propertiesFileName = "secrets.properties"
 }

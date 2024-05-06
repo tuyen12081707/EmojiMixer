@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">EmojiMixer</string>
+
+
+    <string name="activity_hint_1">اسحب لليسار أو لليمين لمزج الرموز التعبيرية</string>
+    <string name="downloading">تنزيل الرموز التعبيرية المختلطة الرائعة&#8230;</string>
+    <string name="swipe_left_or_right_to_mix_emojis">اسحب لليسار أو لليمين لمزج الرموز التعبيرية</string>
+    <string name="save_emoji">يحفظ</string>
+    <string name="exporting">تصدير</string>
+    <string name="saved">تم الحفظ بنجاح</string>
+    <string name="failed_to_save">فشلت في انقاذ</string>
+    <string name="title_activity_result">نشاط النتيجة</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">الجزء الأول</string>
+    <string name="second_fragment_label">الجزء الثاني</string>
+    <string name="next">التالي</string>
+    <string name="previous">سابق</string>
+
+    <!--        language-->
+    <string name="hindi">الهندية</string>
+    <string name="spanish">الأسبانية</string>
+    <string name="french">فرنسي</string>
+    <string name="arabic">عربي</string>
+    <string name="bengali">البنغالية</string>
+    <string name="russian">الروسية</string>
+    <string name="portuguese">البرتغالية</string>
+    <string name="indonesian">الاندونيسية</string>
+    <string name="german">ألمانية</string>
+    <string name="italian">ايطالي</string>
+    <string name="korean">الكورية</string>
+    <string name="english">إنجليزي</string>
+    <string name="language">لغة</string>
+    <string name="intro_title_1">مجموعة الرموز التعبيرية الفريدة جاهزة للاستخدام.</string>
+    <string name="intro_title_2">فئات الرموز التعبيرية المختلفة بما في ذلك الوجوه الضاحكة والحيوانات والطعام... والمزيد.</string>
+    <string name="intro_title_3">حدد ودمج اثنين من الرموز التعبيرية لإنشاء رمز تعبيري فريد ولطيف</string>
+    <string name="let_s_go">دعنا نذهب</string>
+    <string name="merge">دمج</string>
+    <string name="collection">مجموعة</string>
+    <string name="setting">جلسة</string>
+    <string name="new_emoji">رموز تعبيرية جديدة</string>
+    <string name="share">يشارك</string>
+    <string name="create_new">خلق جديد إبداع جديد</string>
+    <string name="oh">أوه!</string>
+    <string name="your_collection_is_empty">مجموعتك فارغة!</string>
+
+    <string name="sound">صوت</string>
+</resources>

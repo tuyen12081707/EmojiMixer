@@ -4,6 +4,7 @@ import android.content.Intent
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import com.emojimixer.adapters.CollectionAdapter
+import com.emojimixer.ads.AdsManager
 import com.emojimixer.databinding.ActivityCollectionBinding
 import com.emojimixer.utils.Common
 import com.emojimixer.utils.Common.gone
@@ -22,6 +23,10 @@ class CollectionActivity : BaseActivity<ActivityCollectionBinding>(ActivityColle
         binding.ivBack.setOnClickListener {
             finish()
         }
+        binding.dontTouch.setOnClickListener {
+
+        }
+        binding.dontTouch.gone()
         if(listCollection.isEmpty()){
             binding.lnEmpty.visible()
             binding.rcvCollection.gone()
@@ -30,15 +35,20 @@ class CollectionActivity : BaseActivity<ActivityCollectionBinding>(ActivityColle
             binding.rcvCollection.visible()
         }
         var collectionAdapter = CollectionAdapter(this,listCollection){
-            if(it!=null){
-                parseEmojiURL(it)
-                val intent: Intent = Intent(this, ResultCollectionActivity::class.java)
-                    .putExtra("unicode1", unicode1)
-                    .putExtra("unicode2", unicode2)
-                    .putExtra("date", newDate)
-                    .putExtra("collection",true)
-                mLauncher.launch(intent)
-            }
+            binding.dontTouch.visible()
+            AdsManager.showAdInter(this,AdsManager.INTER_CHOOSE_ITEM,object:AdsManager.AdListener{
+                override fun onAdClosed() {
+                    binding.dontTouch.gone()
+                    parseEmojiURL(it)
+                    val intent: Intent = Intent(this@CollectionActivity, ResultCollectionActivity::class.java)
+                        .putExtra("unicode1", unicode1)
+                        .putExtra("unicode2", unicode2)
+                        .putExtra("date", newDate)
+                        .putExtra("collection",true)
+                    mLauncher.launch(intent)
+                }
+            },"2")
+
 
         }
         binding.rcvCollection.adapter = collectionAdapter

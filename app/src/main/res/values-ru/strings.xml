@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="activity_hint_1">Проведите пальцем влево или вправо, чтобы смешать смайлы.</string>
+    <string name="downloading">Загрузка ваших крутых смешанных смайлов&#8230;</string>
+    <string name="swipe_left_or_right_to_mix_emojis">Проведите пальцем влево или вправо, чтобы смешать смайлы.</string>
+    <string name="save_emoji">Сохранять</string>
+    <string name="exporting">Экспорт</string>
+    <string name="saved">Успешно сохранено</string>
+    <string name="failed_to_save">Не удалось сохранить</string>
+    <string name="title_activity_result">Результатактивность</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">Первый фрагмент</string>
+    <string name="second_fragment_label">Второй фрагмент</string>
+    <string name="next">Следующий</string>
+    <string name="previous">Предыдущий</string>
+
+    <!--        language-->
+    <string name="hindi">хинди</string>
+    <string name="spanish">испанский</string>
+    <string name="french">Французский</string>
+    <string name="arabic">арабский</string>
+    <string name="bengali">Бенгальский</string>
+    <string name="russian">Русский</string>
+    <string name="portuguese">португальский</string>
+    <string name="indonesian">индонезийский</string>
+    <string name="german">Немецкий</string>
+    <string name="italian">итальянский</string>
+    <string name="korean">Корейский</string>
+    <string name="english">Английский</string>
+    <string name="language">Язык</string>
+    <string name="intro_title_1">Уникальные комбинации смайлов готовы к использованию.</string>
+    <string name="intro_title_2">Различные категории смайлов, включая смайлы, животных, еду... и многое другое.</string>
+    <string name="intro_title_3">Выберите и объедините два смайлика, чтобы создать милый уникальный смайлик.</string>
+    <string name="let_s_go">Пойдем</string>
+    <string name="merge">Объединить</string>
+    <string name="collection">Коллекция</string>
+    <string name="setting">Параметр</string>
+    <string name="new_emoji">Новые эмодзи</string>
+    <string name="share">Делиться</string>
+    <string name="create_new">Создавать новое</string>
+    <string name="oh">Ой!</string>
+    <string name="your_collection_is_empty">Ваша коллекция пуста!</string>
+
+    <string name="sound">Звук</string>
+</resources>

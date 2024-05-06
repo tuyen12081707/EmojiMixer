@@ -12,9 +12,8 @@ object Common {
     @JvmStatic
     var totalMilliseconds: Long = 0
     private var timeLast = 0L
-    var isShowRate = 0;
-    var API = "https://www.gstatic.com/android/keyboard/emojikitchen/"
-
+    @JvmStatic
+    var countInter = 1
     fun getLang(mContext: Context): String? {
         val preferences =
             mContext.getSharedPreferences(mContext.packageName, Context.MODE_MULTI_PROCESS)

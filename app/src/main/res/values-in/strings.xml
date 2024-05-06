@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="activity_hint_1">Gesek ke kiri atau kanan untuk mencampur emoji</string>
+    <string name="downloading">Mengunduh emoji campuran keren Anda&#8230;</string>
+    <string name="swipe_left_or_right_to_mix_emojis">Gesek ke kiri atau kanan untuk mencampur emoji</string>
+    <string name="save_emoji">Menyimpan</string>
+    <string name="exporting">Mengekspor</string>
+    <string name="saved">Berhasil Disimpan</string>
+    <string name="failed_to_save">Gagal Menyimpan</string>
+    <string name="title_activity_result">Hasil Aktivitas</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">Fragmen Pertama</string>
+    <string name="second_fragment_label">Fragmen Kedua</string>
+    <string name="next">Berikutnya</string>
+    <string name="previous">Sebelumnya</string>
+
+    <!--        language-->
+    <string name="hindi">Hindi</string>
+    <string name="spanish">Orang Spanyol</string>
+    <string name="french">Perancis</string>
+    <string name="arabic">Arab</string>
+    <string name="bengali">Benggala</string>
+    <string name="russian">Rusia</string>
+    <string name="portuguese">Portugis</string>
+    <string name="indonesian">bahasa Indonesia</string>
+    <string name="german">Jerman</string>
+    <string name="italian">Italia</string>
+    <string name="korean">Korea</string>
+    <string name="english">Bahasa inggris</string>
+    <string name="language">Bahasa</string>
+    <string name="intro_title_1">Emoji kombinasi unik siap Anda gunakan.</string>
+    <string name="intro_title_2">Berbagai kategori emoji termasuk smiley, hewan, makanan... dan banyak lagi.</string>
+    <string name="intro_title_3">Pilih dan gabungkan dua emoji untuk membuat emoji unik yang lucu</string>
+    <string name="let_s_go">Ayo pergi</string>
+    <string name="merge">Menggabungkan</string>
+    <string name="collection">Koleksi</string>
+    <string name="setting">Pengaturan</string>
+    <string name="new_emoji">Emoji Baru</string>
+    <string name="share">Membagikan</string>
+    <string name="create_new">Membuat baru</string>
+    <string name="oh">Oh!</string>
+    <string name="your_collection_is_empty">Koleksi Anda kosong!</string>
+
+    <string name="sound">Suara</string>
+
+</resources>

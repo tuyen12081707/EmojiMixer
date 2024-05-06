@@ -5,6 +5,7 @@ import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.emojimixer.R
 import com.emojimixer.adapters.IntroAdapter
+import com.emojimixer.ads.AdsManager
 import com.emojimixer.databinding.ActivityIntroBinding
 import com.emojimixer.model.Introduction
 
@@ -33,6 +34,7 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(ActivityIntroBinding::i
                 startActivity(intent)
             }
         }
+        AdsManager.showNativeSmall(this,binding.frNative,AdsManager.NATIVE_INTRO)
         pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(
                 position: Int,

@@ -30,9 +30,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:paddingHorizontal="3dp"
+            android:shadowRadius="10"
+            android:shadowDx="4"
+            android:shadowDy="5"
+            android:textColor="#0061BB"
+            android:shadowColor="#FFFFFF"
             android:fontFamily="@font/svn_dumpling"
             android:text="@string/collection"
-            android:textColor="@color/white"
             android:textSize="32sp" />
     </RelativeLayout>
 

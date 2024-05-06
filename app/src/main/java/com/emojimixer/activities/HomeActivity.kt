@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.emojimixer.R
+import com.emojimixer.ads.AdsManager
 import com.emojimixer.databinding.ActivityHomeBinding
 
 class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::inflate),
@@ -22,6 +23,9 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
         binding.btnMerge.setOnClickListener(this)
         binding.tvCollection.setOnClickListener(this)
         binding.tvSetting.setOnClickListener(this)
+        AdsManager.loadAndShowNative(this,binding.frNative,AdsManager.NATIVE_HOME)
+        AdsManager.loadInter(this,AdsManager.INTER_MERGE)
+        AdsManager.loadInter(this,AdsManager.INTER_CHOOSE_ITEM)
     }
 
     override fun onClick(view: View) {

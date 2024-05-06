@@ -20,7 +20,7 @@ import com.google.android.material.progressindicator.CircularProgressIndicator
 class CollectionAdapter(
     var mContext: Context,
     var listCollection: ArrayList<String>,
-    val callBack: (result:String?) -> Unit
+    val callBack: (result:String) -> Unit
 ) :
     RecyclerView.Adapter<CollectionAdapter.ViewHolder>() {
 
