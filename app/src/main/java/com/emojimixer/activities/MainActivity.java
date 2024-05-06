@@ -25,6 +25,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowInsets;
 import android.view.WindowInsetsController;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.webkit.CookieManager;
 import android.webkit.URLUtil;
 import android.widget.Button;
@@ -53,6 +55,7 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.emojimixer.MediaManager;
 import com.emojimixer.R;
 import com.emojimixer.adapters.EmojisSliderAdapter;
 import com.emojimixer.ads.AdsManager;
@@ -62,6 +65,7 @@ import com.emojimixer.functions.RequestNetwork;
 import com.emojimixer.functions.RequestNetworkController;
 import com.emojimixer.functions.Utils;
 import com.emojimixer.functions.offsetItemDecoration;
+import com.emojimixer.utils.Common;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
@@ -101,8 +105,8 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayoutManager emojisSlider2LayoutManager;
     private final SnapHelper emojisSlider1SnapHelper = new LinearSnapHelper();
     private final SnapHelper emojisSlider2SnapHelper = new LinearSnapHelper();
-    private int posItem1 = 0;
-    private int posItem2 = 0;
+    private int posItem1 = -1;
+    private int posItem2 = -1;
     private String unicode1 = "u1f604";
     private String unicode2 = "u1f422";
     public String newDate = "20210218";
@@ -118,6 +122,8 @@ public class MainActivity extends AppCompatActivity {
             result -> {
                 loadAndShowBannerCollap();
             });
+    private Animation blinkAnimation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         hideNavigation();
@@ -130,14 +136,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadAndShowBannerCollap() {
-        if(AdmobUtils.isNetworkConnected(this)){
+        if (AdmobUtils.isNetworkConnected(this)) {
             binding.frBanner.setVisibility(View.VISIBLE);
             binding.line.setVisibility(View.VISIBLE);
-            AdsManager.showAdBannerCollapsible(this,AdsManager.INSTANCE.getBANNER_COLLAP_MERGE(), binding.frBanner,binding.line);
-        }else{
+            AdsManager.showAdBannerCollapsible(this, AdsManager.INSTANCE.getBANNER_COLLAP_MERGE(), binding.frBanner, binding.line);
+        } else {
             binding.frBanner.setVisibility(View.GONE);
             binding.line.setVisibility(View.GONE);
         }
+    }
+
+    private void loadAnimation(ImageView ivItem) {
+        blinkAnimation = AnimationUtils.loadAnimation(this, R.anim.blink_animation);
+        ivItem.startAnimation(blinkAnimation);
     }
 
     public void hideNavigation() {
@@ -167,31 +178,38 @@ public class MainActivity extends AppCompatActivity {
         requestSupportedEmojis = new RequestNetwork(this);
         sharedPref = getSharedPreferences("AppData", Activity.MODE_PRIVATE);
         ivChoose1.setOnClickListener(v -> {
+            binding.ivChoosePlayer2.clearAnimation();
+            loadAnimation(binding.ivChoosePlayer1);
             type = 1;
             emojiAdapter.updateType(type);
+
         });
-        binding.ivBack.setOnClickListener(v->{
+        binding.ivBack.setOnClickListener(v -> {
             finish();
         });
         ivChoose2.setOnClickListener(v -> {
             type = 2;
+            binding.ivChoosePlayer1.clearAnimation();
+            loadAnimation(binding.ivChoosePlayer2);
             emojiAdapter.updateType(type);
         });
-        RxView.clicks(binding.ivCategories1).throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe(v->{
+        loadAnimation(binding.ivChoosePlayer1);
+
+        RxView.clicks(binding.ivCategories1).throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe(v -> {
             emojiAdapter.updateData(listEmoji);
             binding.ivCategories1.setBackgroundResource(R.drawable.img_choose_active);
             binding.ivCategories2.setBackgroundResource(R.drawable.img_choose_unactive);
             binding.ivCategories3.setBackgroundResource(R.drawable.img_choose_unactive);
             binding.ivCategories4.setBackgroundResource(R.drawable.img_choose_unactive);
         });
-        RxView.clicks(binding.ivCategories2).throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe(v->{
+        RxView.clicks(binding.ivCategories2).throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe(v -> {
             emojiAdapter.updateData(listFood);
             binding.ivCategories1.setBackgroundResource(R.drawable.img_choose_unactive);
             binding.ivCategories2.setBackgroundResource(R.drawable.img_choose_active);
             binding.ivCategories3.setBackgroundResource(R.drawable.img_choose_unactive);
             binding.ivCategories4.setBackgroundResource(R.drawable.img_choose_unactive);
         });
-        RxView.clicks(binding.ivCategories3).throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe(v->{
+        RxView.clicks(binding.ivCategories3).throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe(v -> {
             emojiAdapter.updateData(listOther);
             binding.ivCategories1.setBackgroundResource(R.drawable.img_choose_unactive);
             binding.ivCategories2.setBackgroundResource(R.drawable.img_choose_unactive);
@@ -199,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
             binding.ivCategories4.setBackgroundResource(R.drawable.img_choose_unactive);
 
         });
-        RxView.clicks(binding.ivCategories4).throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe(v->{
+        RxView.clicks(binding.ivCategories4).throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe(v -> {
             emojiAdapter.updateData(listAnimal);
             binding.ivCategories1.setBackgroundResource(R.drawable.img_choose_unactive);
             binding.ivCategories2.setBackgroundResource(R.drawable.img_choose_unactive);
@@ -207,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
             binding.ivCategories4.setBackgroundResource(R.drawable.img_choose_active);
         });
         binding.dontTouch.setVisibility(View.GONE);
-        binding.dontTouch.setOnClickListener(v->{
+        binding.dontTouch.setOnClickListener(v -> {
 
         });
         btnMerge.setOnClickListener(v -> {
@@ -218,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
                     binding.dontTouch.setVisibility(View.GONE);
                     handleReplaceActivityResult();
                 }
-            },"1");
+            }, "1");
         });
 
         String response = AssetJSONFile("supported_emojis.json", this);
@@ -246,9 +264,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void handleReplaceActivityResult() {
         Intent intent = new Intent(this, ResultActivity.class)
-                .putExtra("unicode1",unicode1)
-                .putExtra("unicode2",unicode2)
-                .putExtra("date",newDate);
+                .putExtra("unicode1", unicode1)
+                .putExtra("unicode2", unicode2)
+                .putExtra("date", newDate);
         mLauncher.launch(intent);
     }
 
@@ -258,7 +276,6 @@ public class MainActivity extends AppCompatActivity {
         setSnapHelper(emojisSlider1, emojisSlider1SnapHelper, emojisSlider1LayoutManager);
 
         emojisSlider1.setLayoutManager(emojisSlider1LayoutManager);
-
 
 
         if (sharedPref.getString("supportedEmojisList", "").isEmpty()) {
@@ -297,19 +314,43 @@ public class MainActivity extends AppCompatActivity {
             handler.post(() -> {
                 emojiAdapter = new EmojisSliderAdapter(listEmoji, MainActivity.this, type, new EmojisSliderAdapter.ICallBack() {
                     @Override
-                    public void clickItem(@NotNull String url, int position,String unicode
-                    ,String date) {
+                    public void clickItem(@NotNull String url, int position, String unicode
+                            , String date) {
                         posItem1 = position;
                         newDate = date;
-                        unicode1 =unicode;
+                        unicode1 = unicode;
+                        type = 2;
+
+                        emojiAdapter.updateType(type);
                         setImageFromUrl(ivChoose1, url);
+                        if (Common.INSTANCE.getSoundBool(MainActivity.this)) {
+                            MediaManager.Companion.getGetInstance().playSound(MainActivity.this, "sound/select.mp3");
+                        }
+                        if (posItem1 != -1 && posItem2 != -1) {
+                            binding.ivChoosePlayer1.clearAnimation();
+                            binding.ivChoosePlayer2.clearAnimation();
+                            binding.btnMerge.setBackgroundResource(R.drawable.img_buton);
+                        } else {
+                            binding.ivChoosePlayer1.clearAnimation();
+                            loadAnimation(binding.ivChoosePlayer2);
+                        }
+
                     }
 
                     @Override
-                    public void clickItem2(@NotNull String url, int position,String unicode) {
+                    public void clickItem2(@NotNull String url, int position, String unicode) {
+                        if (Common.INSTANCE.getSoundBool(MainActivity.this)) {
+                            MediaManager.Companion.getGetInstance().playSound(MainActivity.this, "sound/select.mp3");
+                        }
+                        binding.ivChoosePlayer2.clearAnimation();
                         setImageFromUrl(ivChoose2, url);
                         posItem2 = position;
-                        unicode2 =unicode;
+                        unicode2 = unicode;
+                        if (posItem1 != -1 && posItem2 != -1) {
+                            binding.btnMerge.setBackgroundResource(R.drawable.img_buton);
+                            binding.ivChoosePlayer1.clearAnimation();
+                            binding.ivChoosePlayer2.clearAnimation();
+                        }
                     }
                 });
                 emojisSlider1.setAdapter(emojiAdapter);

@@ -148,7 +148,7 @@
             android:layout_marginBottom="2dp"
             android:text="Install"
             android:paddingHorizontal="4dp"
-            android:background="@drawable/bg_btn_install_ads"
+            android:background="@drawable/bg_install_native"
             android:textSize="14sp"
             android:textStyle="bold"
             android:lines="1"

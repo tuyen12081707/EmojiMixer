@@ -9,6 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.emojimixer.R
 import com.emojimixer.ads.AdsManager
 import com.emojimixer.databinding.ActivitySplashBinding
+import com.emojimixer.utils.Common
 import com.google.android.gms.ads.AdValue
 import com.vapp.admoblibrary.ads.AOAManager
 import com.vapp.admoblibrary.ads.AdmobUtils
@@ -32,6 +33,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
             finish()
             return
         }
+        Common.countInter = 1
         if (AdmobUtils.isNetworkConnected(this)) {
             setupCMP()
         } else {

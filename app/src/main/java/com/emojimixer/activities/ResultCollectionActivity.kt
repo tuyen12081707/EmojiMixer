@@ -21,12 +21,14 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.emojimixer.MediaManager.Companion.getInstance
 import com.emojimixer.R
 import com.emojimixer.databinding.ActivityResultCollectionBinding
 import com.emojimixer.functions.EmojiMixer
 import com.emojimixer.functions.UIMethods
 import com.emojimixer.functions.Utils
 import com.emojimixer.utils.Common
+import com.emojimixer.utils.Common.getSoundBool
 import java.io.File
 import java.io.FileOutputStream
 import java.net.HttpURLConnection
@@ -46,6 +48,9 @@ class ResultCollectionActivity : BaseActivity<ActivityResultCollectionBinding>(A
         emote2 = intent.getStringExtra("unicode2")
         if (intent.getStringExtra("date") != null) {
             date = intent.getStringExtra("date").toString()
+        }
+        if (getSoundBool(this@ResultCollectionActivity)) {
+            getInstance.playSound(this@ResultCollectionActivity, "sound/select.mp3")
         }
         binding.ivBack.setOnClickListener {
             finish()

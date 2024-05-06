@@ -65,7 +65,7 @@
                     android:adjustViewBounds="true"
                     android:background="@drawable/img_background_emoji"
                     android:padding="30dp"
-                    android:src="@drawable/shocked" />
+         />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -82,7 +82,7 @@
                     android:layout_height="140dp"
                     android:background="@drawable/img_background_emoji"
                     android:padding="30dp"
-                    android:src="@drawable/shocked" />
+               />
             </LinearLayout>
 
             <LinearLayout
@@ -166,7 +166,7 @@
         android:layout_height="62dp"
         android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="@dimen/_20sdp"
-        android:background="@drawable/img_buton"
+        android:background="@drawable/img_btn_unactive"
         android:fontFamily="@font/svn_dumpling"
         android:gravity="center"
         android:paddingBottom="5dp"

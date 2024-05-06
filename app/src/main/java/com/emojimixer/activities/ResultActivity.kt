@@ -5,47 +5,34 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.AsyncTask
 import android.os.Build
-import android.os.Bundle
-import android.os.Environment
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import androidx.core.net.toUri
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.target.Target
-import com.bumptech.glide.request.transition.Transition
+import com.emojimixer.MediaManager.Companion.getInstance
 import com.emojimixer.R
+import com.emojimixer.ads.AdsManager
 import com.emojimixer.databinding.ActivityResultBinding
 import com.emojimixer.functions.EmojiMixer
-import com.emojimixer.functions.RequestNetwork
-import com.emojimixer.functions.RequestNetworkController
 import com.emojimixer.functions.UIMethods.shadAnim
 import com.emojimixer.functions.Utils
 import com.emojimixer.utils.Common
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import java.io.File
 import java.io.FileOutputStream
-import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL
-import java.util.Objects
 
 
 class ResultActivity : BaseActivity<ActivityResultBinding>(ActivityResultBinding::inflate) {
@@ -58,6 +45,9 @@ class ResultActivity : BaseActivity<ActivityResultBinding>(ActivityResultBinding
 
     override fun initView() {
         sharedPref = getSharedPreferences("AppData", MODE_PRIVATE)
+        if(Common.getSoundBool(this)){
+            getInstance.playSound(this@ResultActivity, "sound/win.mp3")
+        }
 
         emote1 = intent.getStringExtra("unicode1")
 
